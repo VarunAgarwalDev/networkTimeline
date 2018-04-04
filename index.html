@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Song Networks: Interative Network Tutorial</title>
+  <title>Bitcoin Visualization: Dynamic Network Timeline Data</title>
   <meta name="description" content="Crypto Currency Network Timeline">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <!-- CSS -->
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <!-- end CSS -->
-  
+
   <!-- JS -->
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
   <!-- end JS -->
@@ -25,12 +25,12 @@
 
   <div id="container" class="container">
     <header>
-    <h1>Similar Song Networks</h1>
-    <p>Songs similar to one another according to <a href="http://www.last.fm/api">last.fm</a> are linked together. Song nodes are sized based on playcounts, and colored by artist.</p>
+    <h1>Bitcoin Visualization</h1>
+    <p>Crypto transactions according to: <a href="http://www.blockchain.info">blockchain.info</a>. Nodes represent addresses and edges between those nodes represent transactions</p>
     </header>
 
       <div id="song_selection" class="control">
-        <h3>Song</h3>
+        <h3>Preloaded Address Logs</h3>
         <select id="song_select">
           <option value="call_me_al.json">You Can Call Me Al</option>
           <option value="sledgehammer_2_rounds.json">Sledgehammer</option>
@@ -43,27 +43,28 @@
 
       </div>
     <div id="controls">
-      <div id="layouts" class="control">
-        <h3>Layout</h3>
-        <a id="force" class="active">Force Directed</a>
-        <a id="radial">Artists</a>
-      </div>
-      <div id="filters" class="control">
-        <h3>Filter</h3>
-        <a id="all" class="active">All</a>
-        <a id="popular">Popular</a>
-        <a id="obscure">Obscure</a>
-      </div>
-      <div id="sorts" class="control">
-        <h3>Sort</h3>
-        <a id="songs" class="active">Songs</a>
-        <a id="links">Links</a>
-      </div>
       <div id="search_section" class="control">
-        <form id="search_form" action=""  method="post">
-          <p class="search_title">Search <input type="text" class="text-input" id="search" value="" /></p>
+        <h3>Address</h3>
+        <form id="search_form" action="">
+          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
         </form>
       </div>
+      <div id="search_section" class="control">
+        <h3>Start Time</h3>
+        <form id="search_form" action="">
+          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+        </form>
+      </div>
+      <div id="search_section" class="control">
+        <h3>End Time</h3>
+        <form id="search_form" action="">
+          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+        </form>
+      </div>
+      <div id="search_section" class="control">
+        <button type="button" class="btn btn-primary btn-sm">Generate Graph</button>
+      </div>
+
     <div id="main" role="main">
       <div id="vis"></div>
     </div>
