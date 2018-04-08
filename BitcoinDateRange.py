@@ -132,12 +132,19 @@ def updateSource():
 # def init(addresses = ["1BoatSLRHtKNngkdXEeobR76b53LETtpyT"], firstDate = datetime(2017, 3, 4, 1, 1, 1)
 # ,lastDate = datetime(2017, 3, 5, 1, 1, 1)):
 addresses = ["3HHvdMBiMDjDmLVTXXSnkTVhpGvK6f4HtC"]
-firstDate = datetime(2017, 3, 4, 1, 1, 1)
-lastDate = datetime(2016, 3, 5, 1, 1, 1)
+firstDate = datetime(2016, 3, 4, 1, 1, 1)
+lastDate = datetime(2018, 3, 5, 1, 1, 1)
 transactionLinks = transactionGraph(addresses, firstDate, lastDate)
 transactionGraph = {}
 
 transactionGraph['nodes'] =  formatTransactionNodes(uniqueNodes)
 transactionGraph['links'] = transactionLinks
 updateSource()
-print json.dumps(transactionGraph)
+
+with open('data/set.json', 'w') as outfile:
+    json_str = json.dumps(transactionGraph, outfile)
+    outfile.write(json_str)
+    # with open(path, 'w') as f:
+    # json_str = json.dumps({'profile_info': prof_info})
+    # f.write(json_str)
+# print json.dumps(transactionGraph)
