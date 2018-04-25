@@ -14,6 +14,10 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <!-- <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" /> -->
+
+  <link rel="stylesheet" href="css/style.css">
+
   <style>
       .link {
         stroke: #aaa;
@@ -43,9 +47,21 @@
 
   <!-- JS -->
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
+
+  <!-- <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> -->
+  <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js"></script>
+  <!-- <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> -->
   <!-- end JS -->
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
   <!-- <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script> -->
+
+<!-- <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" /> -->
+
+
 </head>
 
 <body>
@@ -76,7 +92,7 @@
         </form>
       </div>
       <div id="search_section" class="control">
-        <button type="button" class="btn btn-primary btn-sm">Generate Graph</button>
+        <button type="button" class="btn btn-primary btn-sm">Generate all the Graphs</button>
       </div>
 
     <div id="main" role="main">
@@ -104,7 +120,7 @@
   <script src='http://d3js.org/d3.v3.min.js'></script>
       <script>
       var width = 1020,
-    height = 500
+    height = 700
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -142,22 +158,18 @@ d3.json("data/set.json", function(json) {
 
   node.append("circle")
       .attr("r","5");
-
   node.append("text")
       .attr("dx", 12)
       .attr("dy", ".35em")
       .text(function(d) { return d.source });
-
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
-
     node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
 });
-
 
 </script>
 
