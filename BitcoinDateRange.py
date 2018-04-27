@@ -50,8 +50,10 @@ def getAllTransactions(address, startTime, endTime):
 		else:
 			return allRawTrans
 		pageNum = pageNum + 1
+		# print("Searching Page #" + str(pageNum))
 
 def processTransactions(allRawTrans, startTime, endTime):
+	#rawtrans = allRawTrans[0]['txs']
 	cleanedtrans = []
 	for fullrawtrans in allRawTrans:
 		rawtrans = fullrawtrans['txs']
@@ -99,6 +101,7 @@ def transactionsByDate(address, firstDate, lastDate, uniqueTrasnactions):
 			uniqueTrans.append(transaction)
 			uniqueNodes.add(transaction['source'])
 			uniqueNodes.add(transaction['target'])
+	# print "Found: " + str(len(uniqueTrans))
 	return uniqueTrans
 
 def transactionGraph(addressList, firstDate, lastDate):
@@ -126,6 +129,8 @@ def updateSource():
 		link["source"] = sourceID[link["source"]]
 		link["target"] = sourceID[link["target"]]
 
+# def init(addresses = ["1BoatSLRHtKNngkdXEeobR76b53LETtpyT"], firstDate = datetime(2017, 3, 4, 1, 1, 1)
+# ,lastDate = datetime(2017, 3, 5, 1, 1, 1)):
 addresses = ["3HHvdMBiMDjDmLVTXXSnkTVhpGvK6f4HtC"]
 firstDate = datetime(2016, 3, 4, 1, 1, 1)
 lastDate = datetime(2018, 3, 5, 1, 1, 1)
@@ -139,6 +144,7 @@ updateSource()
 with open('data/set.json', 'w') as outfile:
     json_str = json.dumps(transactionGraph, outfile)
     outfile.write(json_str)
+
 
 ########################################################################################################################
 # This class contains methods to handle our requests to different URIs in the app
