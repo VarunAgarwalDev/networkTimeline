@@ -1,4 +1,5 @@
 function getData(currType){
+  var finalJson;
   if(currType == "btc"){
     formResp = document.getElementById("search_form_btc");
   }else{
@@ -12,6 +13,7 @@ function getData(currType){
   }else {
     alert("Please enter all values");
   }
+
   $("#dvLoading").show();
   var postman = $.post("https://archerbitcointimeline.herokuapp.com/"+currType,
     {
@@ -20,52 +22,50 @@ function getData(currType){
         end:endDate
     });
   postman.success(function(data, status){
+      //Hide loading screen
         $("#dvLoading").hide();
-        alert(data);
+        console.log(data);
+        //return json to be converted to CSV
+        finalJson = data;
   });
+  return finalJson;
 }
 
 //Converts JSON into a CSV
-function convertJSONToCSV(args) {
-    var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+function convertJSONToCSV(objArray) {
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+            var str = 'Sending Address, Receiving ID, Receiving Address, Value, Source ID, Transaction ID' + '\r\n';
 
-    data = args.data || null;
-    if (data == null || !data.length) {
-        return null;
-    }
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (index in array[i]) {
+                    if (line != '') line += ','
+                    line += array[i][index];
+                    console.log(array[i][index]);
+                }
 
-    columnDelimiter = args.columnDelimiter || ',';
-    lineDelimiter = args.lineDelimiter || '\n';
-
-    keys = Object.keys(data[0]);
-
-    result = '';
-    result += keys.join(columnDelimiter);
-    result += lineDelimiter;
-
-    data.forEach(function(item) {
-        ctr = 0;
-        keys.forEach(function(key) {
-            if (ctr > 0) result += columnDelimiter;
-
-            result += item[key];
-            ctr++;
-        });
-        result += lineDelimiter;
-    });
-
-    return result;
+                str += line + '\r\n';
+            }
+            return str;
 }
 
 function downloadCSV(args) {
     var data, filename, link, curr;
-    var csv = convertJSONToCSV({
-        data: getData(args.curr)
-    });
-    if (csv == null) return;
+    //For some reason this is returning undefined:
+    //It should return a json in the d3 format of nodes and links
+    msgg = getData(args.curr);
+    console.log(typeof(msgg));
+
+    //From here onwards everything else is working
+    var csv = convertJSONToCSV(msgg["links"]);
+    if (csv == null){
+      console.log("csv is returned null");
+      return;
+    }
 
     filename = args.filename || 'exportTransactions.csv';
 
+    //console.log(csv);
     if (!csv.match(/^data:text\/csv/i)) {
         csv = 'data:text/csv;charset=utf-8,' + csv;
     }
