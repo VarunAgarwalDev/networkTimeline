@@ -12,7 +12,7 @@ function getData(currType){
   }else {
     alert("Please enter all values");
   }
-
+  $("#dvLoading").show();
   var postman = $.post("https://archerbitcointimeline.herokuapp.com/"+currType,
     {
         addresses: address,
@@ -20,6 +20,7 @@ function getData(currType){
         end:endDate
     });
   postman.success(function(data, status){
+        $("#dvLoading").hide();
         alert(data);
   });
 }

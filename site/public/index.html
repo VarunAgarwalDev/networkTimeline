@@ -11,12 +11,12 @@
   <meta name="description" content="Crypto Currency Network Timeline">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="site/public/css/reset.css">
+  <link rel="stylesheet" href="site/public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="site/public/css/style.css">
   <!-- <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" /> -->
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="site/public/css/style.css">
 
   <style>
       .link {
@@ -44,78 +44,52 @@
 
 </style>
   <!-- end CSS -->
-
-  <!-- JS -->
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
-
-  <!-- <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
-  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> -->
-  <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js"></script>
-  <!-- <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
-  <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> -->
-  <!-- end JS -->
-  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
-  <!-- <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script> -->
-
-<!-- <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" /> -->
-
-
 </head>
 
 <body>
 
   <div id="container" class="container">
     <header>
-    <h1>Bitcoin Visualization</h1>
-    <p>Crypto transactions according to: <a href="http://www.blockchain.info">blockchain.info</a>. Nodes represent addresses and edges between those nodes represent transactions</p>
+    <h1>Bitcoin and NEM Transaction Export</h1>
+    <p>Crypto transactions according to: <a href="http://www.blockchain.info">blockchain.info</a>. Nodes represent addresses and edges between those nodes represent transactions. Please be sure to write every date in the "mm/dd/yyyy" format</p>
     </header>
 
-    <div id="controls">
-      <div id="search_section" class="control">
-        <h3>Address</h3>
-        <form id="search_form" action="">
+    <div id="search_section" class="control">
+      <form id="search_form_btc" action="">
+        <h3>Bitcoin Address</h3>
           <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
-        </form>
-      </div>
-      <div id="search_section" class="control">
         <h3>Start Time</h3>
-        <form id="search_form" action="">
-          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
-        </form>
-      </div>
-      <div id="search_section" class="control">
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
         <h3>End Time</h3>
-        <form id="search_form" action="">
-          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
-        </form>
-      </div>
-      <div id="search_section" class="control">
-        <button type="button" class="btn btn-primary btn-sm">Generate all the Graphs</button>
-      </div>
-
-    <div id="main" role="main">
-      <div id="vis" align = "center" style="background-color:lightblue; border-style: groove;"></div>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
+      </form>
+      <a type="button" class="btn btn-primary btn-sm" onclick='downloadCSV({ filename: "btcTransactions.csv", curr:"btc" });'>Download CSV</a>
+      <div id="dvLoading" style=" width: 100%; height: 100%; background: rgba(0,0,0,0.2);position: fixed;top: 0px;left: 0px;display: none;">
+  Loading
+</div>
     </div>
+
+    <div id="search_section" class="control">
+      <form id="search_form_nem" action="">
+        <h3>NEM Address</h3>
+          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+        <h3>Start Time</h3>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
+        <h3>End Time</h3>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
+      </form>
+      <a type="button" class="btn btn-primary btn-sm" onclick='downloadCSV({ filename: "nemTransactions.csv", curr: "nem" });'>Download CSV</a>
+    </div>
+
+    <!-- <div id="main" role="main">
+      <div id="vis" align = "center" style="background-color:lightblue; border-style: groove;"></div>
+    </div> -->
     <footer>
     </footer>
   </div> <!--! end of #container -->
 
-
-  <!-- <script defer src="js/plugins.js"></script>
-  <script defer src="js/script.js"></script>
-  <script src="js/libs/coffee-script.js"></script>
-  <script src="js/libs/d3.v3.js"></script>
-  <script src="js/Tooltip.js"></script>
-  <script type="text/coffeescript" src="coffee/vis.coffee"></script> -->
-
-  <script> // Change UA-XXXXX-X to be your site's ID
-    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    });
-  </script>
+  <script type="text/javascript" src="site/public/js/interactive.js"></script>
+  <script type="text/javascript" src="site/public/js/libs/jquery-1.7.2.min.js"></script>
 
   <script src='http://d3js.org/d3.v3.min.js'></script>
       <script>
