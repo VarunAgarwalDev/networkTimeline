@@ -13,15 +13,15 @@ function getData(currType){
     alert("Please enter all values");
   }
 
-  $.post("https://archerbitcointimeline.herokuapp.com/"+currType,
+  var postman = $.post("https://archerbitcointimeline.herokuapp.com/"+currType,
     {
         addresses: address,
         start:startDate,
         end:endDate
-    },
-    function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
     });
+  postman.success(function(data, status){
+        alert(data);
+  });
 }
 
 //Converts JSON into a CSV

@@ -50,8 +50,8 @@
 
   <div id="container" class="container">
     <header>
-    <h1>Bitcoin Visualization</h1>
-    <p>Crypto transactions according to: <a href="http://www.blockchain.info">blockchain.info</a>. Nodes represent addresses and edges between those nodes represent transactions</p>
+    <h1>Bitcoin and NEM Transaction Export</h1>
+    <p>Crypto transactions according to: <a href="http://www.blockchain.info">blockchain.info</a>. Nodes represent addresses and edges between those nodes represent transactions. Please be sure to write every date in the "mm/dd/yyyy" format</p>
     </header>
 
     <div id="search_section" class="control">
@@ -59,11 +59,14 @@
         <h3>Bitcoin Address</h3>
           <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
         <h3>Start Time</h3>
-          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
         <h3>End Time</h3>
-          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
       </form>
       <a type="button" class="btn btn-primary btn-sm" onclick='downloadCSV({ filename: "btcTransactions.csv", curr:"btc" });'>Download CSV</a>
+      <div id="dvLoading" style=" width: 100%; height: 100%; background: rgba(0,0,0,0.2);position: fixed;top: 0px;left: 0px;display: none;">
+  Loading
+</div>
     </div>
 
     <div id="search_section" class="control">
@@ -71,9 +74,9 @@
         <h3>NEM Address</h3>
           <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
         <h3>Start Time</h3>
-          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
         <h3>End Time</h3>
-          <p class="search_title"><input type="text" class="text-input" id="search" value=""/></p>
+          <p class="search_title"><input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="text-input" id="search" value=""/></p>
       </form>
       <a type="button" class="btn btn-primary btn-sm" onclick='downloadCSV({ filename: "nemTransactions.csv", curr: "nem" });'>Download CSV</a>
     </div>
