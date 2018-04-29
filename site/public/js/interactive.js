@@ -13,7 +13,7 @@ function getData(currType){
   }else {
     alert("Please enter all values");
   }
-
+  $.ajaxSetup({async: false});
   $("#dvLoading").show();
   var postman = $.post("https://archerbitcointimeline.herokuapp.com/"+currType,
     {
@@ -22,10 +22,8 @@ function getData(currType){
         end:endDate
     });
   postman.success(function(data, status){
-      //Hide loading screen
         $("#dvLoading").hide();
         console.log(data);
-        //return json to be converted to CSV
         finalJson = data;
   });
   return finalJson;
@@ -34,14 +32,13 @@ function getData(currType){
 //Converts JSON into a CSV
 function convertJSONToCSV(objArray) {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-            var str = 'Sending Address, Receiving ID, Receiving Address, Value, Source ID, Transaction ID' + '\r\n';
+            var str = 'Source ID, Value, Receiving ID, Sending Address, Receiving Address, Transaction ID' + '\r\n';
 
             for (var i = 0; i < array.length; i++) {
                 var line = '';
                 for (index in array[i]) {
                     if (line != '') line += ','
                     line += array[i][index];
-                    console.log(array[i][index]);
                 }
 
                 str += line + '\r\n';
@@ -51,12 +48,7 @@ function convertJSONToCSV(objArray) {
 
 function downloadCSV(args) {
     var data, filename, link, curr;
-    //For some reason this is returning undefined:
-    //It should return a json in the d3 format of nodes and links
-    msgg = getData(args.curr);
-    console.log(typeof(msgg));
-
-    //From here onwards everything else is working
+    msgg = JSON.parse(getData(args.curr));
     var csv = convertJSONToCSV(msgg["links"]);
     if (csv == null){
       console.log("csv is returned null");
